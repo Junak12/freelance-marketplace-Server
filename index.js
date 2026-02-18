@@ -39,7 +39,7 @@ async function run() {
 
     app.post('/addjobs', async(req, res) => {
       const jobs = req.body;
-      const result = await jobsCollection.insertMany(jobs);
+      const result = await jobsCollection.insertOne(jobs);
       res.send(result);
     })
 
@@ -47,6 +47,11 @@ async function run() {
       const review = req.body;
       const result = await reviewsCollections.insertOne(review);
       res.send(result);
+    })
+
+    app.get('/getTopReviews', async(req, res) => {
+      const topReviews = await reviewsCollections.find({}).toArray();
+      res.send(topReviews);
     })
 
 
