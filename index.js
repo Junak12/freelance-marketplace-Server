@@ -54,6 +54,13 @@ async function run() {
       res.send(topReviews);
     })
 
+    app.post('/users', async(req, res) => {
+      const user = req.body;
+      const result = await usersCollection.insertOne(user);
+      res.send(result);
+
+    })
+
 
 
 
