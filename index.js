@@ -1,7 +1,7 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
-import { MongoClient, ServerApiVersion } from'mongodb'
+import { MongoClient, ObjectId, ServerApiVersion } from'mongodb'
 
 dotenv.config();
 const app = express();
@@ -30,6 +30,7 @@ async function run() {
     const jobsCollection = myDB.collection("AllJobs");
     const usersCollection = myDB.collection("Users");
     const reviewsCollections = myDB.collection('reviws');
+    const myTaskCollection = myDB.collection('MyCollection');
 
 
     app.get('/AllJobs', async(req, res) => {
@@ -59,6 +60,29 @@ async function run() {
       const result = await usersCollection.insertOne(user);
       res.send(result);
 
+    })
+
+    app.post('/my-task-collection', async(req, res) => {
+      const taskDetails = req.body;
+      const result = await myTaskCollection.insertOne(taskDetails);
+      res.send(result);
+    })
+
+    app.put('/AllJobs/:id/accept', async(req, res) => {
+      const jobId = req.params.id;
+      const {acceptedBy, status} = req.body;
+      const filter = {_id : new ObjectId(jobId)};
+      const job = await jobsCollection.findOne(filter);
+      const doc = {
+        $set: {
+          acceptedBy:acceptedBy,
+          status: status,
+          updateAt : new Date(),
+
+        },
+      }
+      const result = await jobsCollection.updateOne(filter, doc);
+      res.send(result);
     })
 
 
