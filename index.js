@@ -102,10 +102,29 @@ async function run() {
 
     app.delete("/my-added-jobs/:id", async (req, res) => {
       const { id } = req.params;
-        const result = await jobsCollection.deleteOne({
-          _id: new ObjectId(id),
-        });
-        res.send(result);
+      const result = await jobsCollection.deleteOne({
+        _id: new ObjectId(id),
+      });
+      res.send(result);
+    });
+
+    app.put("/AllJobs/:id/accept", async (req, res) => {
+      const jobId = req.params.id;
+      const { title, category, budget, status } = req.body;
+
+      const filter = { _id: new ObjectId(jobId) };
+      const updateDoc = {
+        $set: {
+          title,
+          category,
+          budget,
+          status,
+          updateAt: new Date(),
+        },
+      };
+
+      const result = await jobsCollection.updateOne(filter, updateDoc);
+      res.send(result);
     });
 
     await client.db("admin").command({ ping: 1 });
