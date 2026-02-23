@@ -85,6 +85,22 @@ async function run() {
       res.send(result);
     })
 
+    app.get('/my-task-collection/:email', async(req, res) => {
+      const email = req.params.email;
+      const result = await myTaskCollection.find({
+        freelancerEmail : email,
+      }).toArray();
+      res.send(result);
+    })
+
+    app.get('/my-add-job/:email', async(req, res) => {
+      const email = req.params.email;
+      const result = await jobsCollection.find({
+        userEmail:email,
+      }).sort({createAt:-1}).toArray();
+      res.send(result); 
+    })
+
 
 
 
