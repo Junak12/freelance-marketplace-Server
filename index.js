@@ -108,17 +108,47 @@ async function run() {
       res.send(result);
     });
 
-    app.put("/AllJobs/:id/accept", async (req, res) => {
+    app.get("/AllJobs/:id", async (req, res) => {
+      const id = req.params.id;
+
+      const job = await jobsCollection.findOne({
+        _id: new ObjectId(id),
+      });
+
+      res.send(job);
+    });
+
+    app.get("/AllJobs/:id", async (req, res) => {
+      const job = await jobsCollection.findOne({ _id: new ObjectId(id) });
+      res.send(job);
+    });
+
+    app.put("/my-added-jobs/:id/accept", async (req, res) => {
       const jobId = req.params.id;
-      const { title, category, budget, status } = req.body;
+      const {
+        title,
+        category,
+        budget,
+        status,
+        summary,
+        coverImage,
+        currency,
+        deadline,
+        taskDescription,
+      } = req.body;
 
       const filter = { _id: new ObjectId(jobId) };
       const updateDoc = {
         $set: {
           title,
           category,
-          budget,
+          budget: Number(budget),
           status,
+          summary,
+          coverImage,
+          currency,
+          deadline: new Date(deadline),
+          taskDescription,
           updateAt: new Date(),
         },
       };
