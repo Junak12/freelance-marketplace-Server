@@ -51,9 +51,16 @@ async function run() {
       res.send(topReviews);
     });
 
-    app.post("/users", async (req, res) => {
+    app.put("/users/:email", async (req, res) => {
+      const email = req.params.email;
       const user = req.body;
-      const result = await usersCollection.insertOne(user);
+
+      const result = await usersCollection.updateOne(
+        { email: email },
+        { $set: user },
+        { upsert: true },
+      );
+
       res.send(result);
     });
 
@@ -118,9 +125,11 @@ async function run() {
       res.send(job);
     });
 
-    app.get("/AllJobs/:id", async (req, res) => {
-      const job = await jobsCollection.findOne({ _id: new ObjectId(id) });
-      res.send(job);
+    app.get("/my-added-jobs/:id", async (req, res) => {
+        const { id } = req.params;
+        const job = await jobsCollection.findOne({ _id: new ObjectId(id) });
+        res.send(job);
+      
     });
 
     app.put("/my-added-jobs/:id/accept", async (req, res) => {
@@ -157,7 +166,7 @@ async function run() {
       res.send(result);
     });
 
-    app.get("/user/:email", async (req, res) => {
+    app.get("/users/:email", async (req, res) => {
       const email = req.params.email;
       const result = await usersCollection.findOne(
         { email: email },
@@ -165,6 +174,19 @@ async function run() {
       );
       res.send(result);
     });
+
+    app.put("/update-profile/:email", async (req, res) => {
+      const email = req.params.email;
+      const { name, image } = req.body;
+      const result = await usersCollection.updateOne(
+        { email },
+        { $set: { name, image } },
+        { upsert: false },
+      );
+      const updatedUser = await usersCollection.findOne({ email });
+      res.status(200).send(updatedUser);
+    });
+
 
     
 
