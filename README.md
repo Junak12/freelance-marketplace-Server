@@ -28,7 +28,6 @@ This is the backend server for the **Freelance Marketplace** project. It provide
 - MongoDB Atlas
 - dotenv (environment variables)
 - CORS
-- MongoDB Native Driver
 
 ---
 
@@ -56,3 +55,4 @@ This is the backend server for the **Freelance Marketplace** project. It provide
 ### Reviews
 - `POST /reviews` — Submit a review
 - `GET /getTopReviews` — Fetch all reviews
+
