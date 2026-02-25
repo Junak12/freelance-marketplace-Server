@@ -2,9 +2,10 @@
 
 This is the backend server for the **Freelance Marketplace** project. It provides RESTful APIs to manage jobs, users, tasks, and reviews. Built with **Node.js**, **Express**, and **MongoDB**.
 
-## **Live API**
+## Live Server
 
-- Render Deployment: [https://freelance-marketplace-server-1.onrender.com](https://freelance-marketplace-server-1.onrender.com](https://freelance-marketplace-server-1.onrender.com))
+You can access the live server here:  
+[https://freelance-marketplace-server-1.onrender.com](https://freelance-marketplace-server-1.onrender.com)
 
 
 ---
@@ -55,4 +56,5 @@ This is the backend server for the **Freelance Marketplace** project. It provide
 ### Reviews
 - `POST /reviews` — Submit a review
 - `GET /getTopReviews` — Fetch all reviews
+
 
