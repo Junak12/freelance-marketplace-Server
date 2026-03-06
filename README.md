@@ -5,7 +5,7 @@ This is the backend server for the **Freelance Marketplace** project. It provide
 ## Live Server
 
 You can access the live server here:  
-[https://freelance-marketplace-server-1.onrender.com](https://freelance-marketplace-server-1.onrender.com)
+[https://freelance-marketplace-server-7.onrender.com)
 
 
 ---
@@ -56,5 +56,6 @@ You can access the live server here:
 ### Reviews
 - `POST /reviews` — Submit a review
 - `GET /getTopReviews` — Fetch all reviews
+
 
 
