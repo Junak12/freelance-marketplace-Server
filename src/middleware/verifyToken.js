@@ -3,15 +3,21 @@ import admin from "firebase-admin";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import dotenv from "dotenv";
 
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const serviceAccountPath = path.resolve(__dirname, "../../", process.env.FIREBASE_KEY_PATH);
 
-const serviceAccountPath = path.join(__dirname, "../../freelance-marketplace-firebase-adminsdk.json");
+if (!fs.existsSync(serviceAccountPath)) {
+  throw new Error(`Firebase JSON not found at ${serviceAccountPath}`);
+}
 
 const serviceAccount = JSON.parse(fs.readFileSync(serviceAccountPath, "utf-8"));
+
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
