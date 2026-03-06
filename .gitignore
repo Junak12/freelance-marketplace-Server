@@ -7,7 +7,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-freelance-marketplace-firebase-key.json
+freelance-marketplace-firebase-adminsdk.json
 # --------------------
 # Environment variables
 # --------------------
